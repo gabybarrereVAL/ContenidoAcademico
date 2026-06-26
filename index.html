@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opportunity Radar — EDEM</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #f0f2f5;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 32px 16px;
+    min-height: 100vh;
+  }
+
+  .page {
+    background: #ffffff;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 32px 0;
+  }
+
+  /* ── HEADER ── */
+  .top-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+  .edem-wordmark {
+    font-size: 32px;
+    font-weight: 900;
+    color: #1a2a4a;
+    letter-spacing: 1.5px;
+    line-height: 1;
+  }
+  .edem-subtext {
+    border-left: 2.5px solid #1a2a4a;
+    padding-left: 12px;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #1a2a4a;
+    line-height: 1.5;
+  }
+  .top-divider {
+    border: none;
+    border-top: 2px solid #1a2a4a;
+    margin-bottom: 16px;
+  }
+
+  /* ── INTRO SECTION ── */
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 0;
+    margin-bottom: 18px;
+    align-items: start;
+  }
+  .intro-left { padding-right: 28px; }
+  .intro-sep { background: #cccccc; }
+  .intro-right { padding-left: 28px; }
+
+  .main-title {
+    font-size: 30px;
+    font-weight: 900;
+    color: #1a2a4a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.1;
+  }
+  .main-subtitle {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #1a9e75;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 5px;
+  }
+  .tagline {
+    font-size: 12px;
+    color: #444;
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+
+  .exercise-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #1a9e75;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 9px;
+  }
+  .step-num {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: #1a2a4a;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text {
+    font-size: 12px;
+    color: #333;
+    line-height: 1.5;
+  }
+  .step-text em {
+    color: #1a9e75;
+    font-style: italic;
+  }
+
+  /* ── COLUMNS ── */
+  .columns-wrap {
+    border: 1px solid #b0b8c8;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* column header */
+  .col-head {
+    border-right: 1px solid #b0b8c8;
+    padding: 11px 10px 9px;
+  }
+  .col-head:last-child { border-right: none; }
+
+  .col-head-inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .col-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .icon-navy { background: #1a2a4a; }
+  .icon-teal { background: #1a9e75; }
+
+  .col-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+  .label-navy { color: #1a2a4a; }
+  .label-teal { color: #1a9e75; }
+
+  .col-question {
+    font-size: 10px;
+    color: #666;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  /* editable area */
+  .col-body {
+    border-right: 1px solid #b0b8c8;
+    border-top: 1px solid #b0b8c8;
+  }
+  .col-body:last-child { border-right: none; }
+
+  .col-body textarea {
+    width: 100%;
+    height: 150px;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 10px 11px;
+    font-size: 12px;
+    color: #1a2a4a;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.55;
+    background: #ffffff;
+    display: block;
+  }
+  .col-body textarea:focus {
+    background: #f7fbf9;
+  }
+  .col-body textarea::placeholder {
+    color: #c0c8d0;
+    font-style: italic;
+  }
+
+  /* guide questions */
+  .col-guide {
+    border-right: 1px solid #b0b8c8;
+    border-top: 1px solid #d0d5dd;
+    padding: 8px 10px 10px;
+  }
+  .col-guide:last-child { border-right: none; }
+
+  .guide-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #444;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .guide-title svg { flex-shrink: 0; }
+
+  .guide-list {
+    list-style: disc;
+    padding-left: 14px;
+  }
+  .guide-list li {
+    font-size: 10px;
+    color: #555;
+    line-height: 1.55;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #1a2a4a;
+    padding: 9px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0;
+  }
+  .footer-msg {
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .footer-logo {
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 1px;
+  }
+
+  /* ── ACTION BAR ── */
+  .actions {
+    max-width: 960px;
+    margin: 16px auto 0;
+    display: flex;
+    gap: 10px;
+    padding: 0 0 32px;
+  }
+  .btn {
+    padding: 9px 18px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    border: 1.5px solid #1a2a4a;
+  }
+  .btn-primary { background: #1a2a4a; color: #fff; }
+  .btn-primary:hover { background: #243a5e; }
+  .btn-secondary { background: #fff; color: #1a2a4a; }
+  .btn-secondary:hover { background: #f0f4f8; }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { max-width: 100%; padding: 16px 20px 0; box-shadow: none; }
+    .actions { display: none; }
+    textarea { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="top-bar">
+    <div class="edem-wordmark">EDEM</div>
+    <div class="edem-subtext">ESCUELA<br>DE EMPRESARIOS</div>
+  </div>
+  <hr class="top-divider">
+
+  <!-- INTRO -->
+  <div class="intro-grid">
+    <div class="intro-left">
+      <div class="main-title">Opportunity Radar</div>
+      <div class="main-subtitle">From problem to value</div>
+      <div class="tagline">
+        Great opportunities start with real problems.<br>
+        Think. Reflect. Connect.
+      </div>
+    </div>
+    <div class="intro-sep"></div>
+    <div class="intro-right">
+      <div class="exercise-label">Mini exercise</div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Think about a problem you experienced this week.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Fill in the template below.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">Discuss your idea with your partner. <em>Could this problem become an opportunity?</em></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLUMNS -->
+  <div class="columns-wrap">
+
+    <!-- HEADERS -->
+    <div class="col-head">
+      <div class="col-head-inner">
+        <div class="col-icon icon-navy">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div>
+          <div class="col-label label-navy">1. Problem</div>
+          <div class="col-question">What problem or frustration<br>did you experience?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-head">
+      <div class="col-head-inner">
+        <div class="col-icon icon-teal">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div>
+          <div class="col-label label-teal">2. Potential customer</div>
+          <div class="col-question">Who else experiences<br>this problem?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-head">
+      <div class="col-head-inner">
+        <div class="col-icon icon-teal">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <div>
+          <div class="col-label label-teal">3. Potential value</div>
+          <div class="col-question">What value would solving<br>this problem create?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-head">
+      <div class="col-head-inner">
+        <div class="col-icon icon-navy">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </div>
+        <div>
+          <div class="col-label label-navy">4. Potential solution</div>
+          <div class="col-question">What could be a possible<br>solution?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDITABLE AREAS -->
+    <div class="col-body">
+      <textarea placeholder="Describe the problem or frustration you experienced..."></textarea>
+    </div>
+    <div class="col-body">
+      <textarea placeholder="Who else has this problem? Who could benefit from solving it?"></textarea>
+    </div>
+    <div class="col-body">
+      <textarea placeholder="What value would solving this create? Time, money, wellbeing..."></textarea>
+    </div>
+    <div class="col-body">
+      <textarea placeholder="What could be a possible solution or improvement?"></textarea>
+    </div>
+
+    <!-- GUIDE QUESTIONS -->
+    <div class="col-guide">
+      <div class="guide-title">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+        Guide questions
+      </div>
+      <ul class="guide-list">
+        <li>What happened?</li>
+        <li>When did it happen?</li>
+        <li>Why is it a problem?</li>
+      </ul>
+    </div>
+    <div class="col-guide">
+      <div class="guide-title">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+        Guide questions
+      </div>
+      <ul class="guide-list">
+        <li>Who has the same problem?</li>
+        <li>How many could be affected?</li>
+        <li>Who is your target customer?</li>
+      </ul>
+    </div>
+    <div class="col-guide">
+      <div class="guide-title">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+        Guide questions
+      </div>
+      <ul class="guide-list">
+        <li>How would their life be better?</li>
+        <li>What time, money or effort would they save?</li>
+        <li>What is the biggest benefit?</li>
+      </ul>
+    </div>
+    <div class="col-guide">
+      <div class="guide-title">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+        Guide questions
+      </div>
+      <ul class="guide-list">
+        <li>How could you solve this problem?</li>
+        <li>What existing solutions exist?</li>
+        <li>How could you make it better?</li>
+      </ul>
+    </div>
+
+  </div><!-- /columns-wrap -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-msg">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L8.5 8.5 2 9.27l5 4.87L5.82 21 12 17.77 18.18 21 17 14.14l5-4.87-6.5-.77L12 2z"/></svg>
+      Entrepreneurs don't start with ideas. They start with problems.
+    </div>
+    <div class="footer-logo">EDEM</div>
+  </div>
+
+</div><!-- /page -->
+
+<!-- ACTIONS (hidden on print) -->
+<div class="actions">
+  <button class="btn btn-primary" onclick="window.print()">Imprimir / Guardar PDF</button>
+  <button class="btn btn-secondary" onclick="document.querySelectorAll('textarea').forEach(t=>t.value='')">Limpiar campos</button>
+</div>
+
+</body>
+</html>
